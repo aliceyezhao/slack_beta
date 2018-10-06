@@ -1,0 +1,41 @@
+
+<h1>#<%= @channel.name %></h1>
+<br>
+<div class="message_container">
+  <%last_msg = nil %>
+  <% @messages.each do |message| %>
+  <div class="message">
+    <div class="message__content_container">
+      <% if last_msg.nil? or last_msg != message.user.username %>
+        <% if !current_user.image.attachment.nil? %>
+          <%= image_tag current_user.image, size: "40x40" %>
+        <% else %>
+          <div class="message__pic_placeholder"></div>
+        <% end %>
+        <p class="message__ts">
+          <span class="message__author">
+            <%= message.user.check_name %>
+            <% last_msg = message.user.username %>
+          </span>
+          <%= message.created_at.strftime("%l:%M %p") %>
+        </p>
+      <% end %>
+      <p class="message__text">
+        <%= message.text %>
+      </p>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+
+<div class="message__input_container">
+  <% if @channel.has_user?(current_user) %>
+    <%= form_with url: "/messages/create", method: "post", html: {autocomplete: "off" } do %>
+    	<input class="message__input" type="text" name="text" placeholder="Your message here" />
+      <input type="hidden" name="channel" value="<%= @channel.id %>"/>
+    <% end %>
+  <% else %>
+    <%= link_to("Join Channel", channel_join_url(channel_id: @channel.id), method: :post, class: "btn") %>
+  <% end %>
+</div>

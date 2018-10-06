@@ -1,0 +1,17 @@
+<h1>Channels#new</h1>
+<p>Find me in app/views/channels/new.html.erb</p>
+<div class="channels_create__container">
+
+	<%= form_for :channel, method: "post" do |f| %>
+	  <div class="field">
+	    <%= f.label :name %>
+	    <%= f.text_field :name %>
+	  </div>
+	  <div class="field">
+	    <%= f.label :purpose %>
+	    <%= f.text_field :purpose %>
+	  </div>
+	  <%= submit_tag 'Create Channel' %>
+	<% end %>
+
+</div>

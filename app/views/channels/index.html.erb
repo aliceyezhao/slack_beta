@@ -1,0 +1,19 @@
+
+
+<div class="channels__container">
+	<!-- notice how this element repeats for more channels -->
+  <% Channel.all.each do |channel| %>
+	  <a href="<%= channel_show_url(channel_id: channel.id) %>">
+	    <div class="channel__container">
+	      <h3>#<%= channel.name %></h3>
+	      <div class="channel__info">
+	        <p><%= channel.purpose %></p>
+	        <p class="channel__count"><%= channel.users.count %> members</p>
+	      </div>
+	    </div>
+	  </a>
+  <% end %>
+  <%= link_to "New channel", channels_new_url, class: "btn btn__channel_create" %>
+
+</div>
+

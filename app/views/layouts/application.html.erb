@@ -10,6 +10,29 @@
   </head>
 
   <body>
+   
+    <nav>
+      <p class="welcome">Welcome,<p>
+      <p class="welcome__name">
+        <% if user_signed_in? %>
+          <%= current_user.email %>
+        <% else %>
+          <%= link_to "Login", new_user_session_path %>
+        <% end %>
+      </p>
+      <div class="links">
+        <%= link_to "Profile", edit_user_registration_path %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+      </div>
+    </nav>
+
+    <% if notice %>
+      <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
     <%= yield %>
   </body>
+
 </html>
